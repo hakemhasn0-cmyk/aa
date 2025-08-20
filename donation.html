@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تبرعات قرية الشغور</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+
+  body {
+    margin: 0;
+    font-family: 'Cairo', sans-serif;
+    background: linear-gradient(to right, #ffe0b2, #fff3e0);
+    color: #333;
+    text-align: center;
+    padding: 20px;
+  }
+
+  header {
+    background: linear-gradient(135deg, #fb8c00, #ffa726);
+    color: white;
+    padding: 40px 20px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  }
+
+  header h1 {
+    margin: 0;
+    font-size: 2.5em;
+  }
+
+  header p {
+    margin: 10px 0 0 0;
+    font-size: 1.2em;
+  }
+
+  .quote {
+    font-style: italic;
+    margin: 15px 0;
+    font-size: 1.2em;
+    color: #fff8e1;
+  }
+
+  .donation-form {
+    background-color: white;
+    border-radius: 15px;
+    padding: 25px;
+    max-width: 450px;
+    margin: auto;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .donation-form:hover {
+    transform: translateY(-5px);
+  }
+
+  .donation-form input[type="text"],
+  .donation-form input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+  }
+
+  .donation-form button {
+    background: linear-gradient(135deg, #fb8c00, #ffa726);
+    color: white;
+    border: none;
+    padding: 14px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    width: 100%;
+    transition: all 0.3s ease;
+  }
+
+  .donation-form button:hover {
+    background: linear-gradient(135deg, #e65100, #f57c00);
+    transform: scale(1.05);
+  }
+
+  .thank-you {
+    margin-top: 12px;
+    font-size: 1em;
+    color: #ef6c00;
+    font-weight: bold;
+  }
+
+  .donors {
+    margin-top: 30px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .donors h2 {
+    margin-bottom: 15px;
+    color: #fb8c00;
+  }
+
+  .donor-card {
+    background-color: #fff3e0;
+    padding: 12px 15px;
+    margin: 8px 0;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+  }
+
+  .donor-card:hover {
+    background-color: #ffe0b2;
+    transform: translateY(-3px);
+  }
+
+  .total {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-top: 25px;
+    color: #e65100;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>تبرعات قرية الشغور</h1>
+  <p>لإصلاح الطرق في قريتنا الحبيبة</p>
+  <div class="quote">"وَمَا تُنفِقُوا مِنْ خَيْرٍ فَلِأَنْفُسِكُمْ..." (البقرة: 272)</div>
+</header>
+
+<div class="donation-form">
+  <h2>أدخل بياناتك للتبرع</h2>
+  <input type="text" id="donorName" placeholder="اسم المتبرع">
+  <input type="number" id="donationAmount" placeholder="قيمة التبرع (بالليرة التركية)">
+  <button onclick="addDonation()">تبرع الآن</button>
+  <div class="thank-you" id="thankYouMessage"></div>
+</div>
+
+<div class="donors">
+  <h2>المتبرعون:</h2>
+  <div id="donorsList"></div>
+</div>
+
+<div class="total">
+  المجموع الكلي للتبرعات: <span id="totalAmount">0</span> ليرة تركية
+</div>
+
+<script>
+let total = 0;
+
+function addDonation() {
+  const name = document.getElementById('donorName').value;
+  const amount = parseFloat(document.getElementById('donationAmount').value);
+  const donorsList = document.getElementById('donorsList');
+  const thankYou = document.getElementById('thankYouMessage');
+
+  if(name && amount > 0){
+    const card = document.createElement('div');
+    card.className = 'donor-card';
+    card.textContent = `${name} تبرع بمبلغ ${amount} ليرة تركية`;
+    donorsList.appendChild(card);
+
+    total += amount;
+    document.getElementById('totalAmount').textContent = total;
+
+    thankYou.textContent = `شكراً لك يا ${name} على تبرعك السخي! 🌟`;
+
+    document.getElementById('donorName').value = '';
+    document.getElementById('donationAmount').value = '';
+  } else {
+    alert("الرجاء إدخال اسم وقيمة صحيحة للتبرع.");
+  }
+}
+</script>
+
+</body>
+</html>
